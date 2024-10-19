@@ -1,0 +1,20 @@
+{
+    "name": "learning/fibers",
+    "type": "project",
+    "require": {
+        "php": "^8.1",
+        "symfony/var-dumper": "^6.4"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Learning\\Fibers\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Eduardo Rogério Souza Santos",
+            "email": "eduardo.rogerio@fmd.ag"
+        }
+    ]
+}
