@@ -1,24 +1,25 @@
 <?php
 
-use Learning\Fibers\Progress\LongOperation;
+use Learning\Fibers\Operation\DatabaseOperation;
+use Learning\Fibers\Operation\FileReading;
 
 require 'vendor/autoload.php';
 
-$operation = new LongOperation();
-
-$fiber = new Fiber(function() use ($operation) {
-    $operation->executeOperation() ;
+$dbFiber = new Fiber(function () {
+    $dbOperation = new DatabaseOperation();
+    return $dbOperation->executeOperation();
 });
 
-echo $fiber->start();
+$fileFiber = new Fiber(function () {
+    $fileOperation = new FileReading();
+    return $fileOperation->executeOperation();
+});
 
-while (!$fiber->isTerminated()) {
+echo $dbFiber->start();
+echo $fileFiber->start();
 
-    $progress = $fiber->resume();
+echo $fileFiber->resume();
+echo $dbFiber->resume();
 
-    if($progress) {
-        echo $progress;
-    }
-}
-
-echo $fiber->getReturn();
+echo $dbFiber->getReturn();
+echo $fileFiber->getReturn();
